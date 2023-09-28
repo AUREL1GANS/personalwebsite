@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+:root {
+  --bg-color: white;
+  --text-color: black;
+  --border-color: black;
+  --nav-bg-color: rgba(0, 0, 0, 0.8);
+  --nav-text-color: white;
+  --toggle-icon-color: black;
+  --font-family: 'Arial', sans-serif;
+  --font-size: 24px;
+}
+
+.dark-mode {
+  --bg-color: black;
+  --text-color: white;
+  --border-color: white;
+  --nav-bg-color: rgba(255, 255, 255, 0.8);
+  --nav-text-color: black;
+  --toggle-icon-color: white;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--border-color) }
+}
+
+#text {
+  display: inline-block;
+  animation: typing 4s steps(20, end), blink-caret .75s step-end infinite;
+  overflow: hidden;
+  text-align: center;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--bg-color);
+}
+
+#toggle-container {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  z-index: 2;
+}
+
+#toggle {
+  background-color: transparent;
+  border: none;
+  color: var(--toggle-icon-color);
+  font-size: 32px; /* Menambahkan ukuran tombol yang lebih besar */
+  margin-bottom: 10px; /* Menambahkan jarak dari garis tiga */
+}
+
+#toggle-line {
+  width: 30px;
+  height: 3px;
+  background-color: var(--toggle-icon-color);
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+#nav {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px;
+  background-color: var(--nav-bg-color);
+  color: var(--nav-text-color);
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1;
+}
+
+#nav.active {
+  transform: translateY(0);
+}
+
+</style>
+</head>
+<body>
+<div id="container">
+  <h1 id="text" style="color: var(--text-color)">Halo, Perkenalkan Nama Saya AUREL IKRAM NUGRAHA, panggil saja Rell</h1>
+  <div id="nav">
+    <ul>
+      <li><a href="project.html">My Project</a></li>
+      <li><a href="sosmed.html">My Sosmed</a></li>
+    </ul>
+  </div>
+</div>
+<div id="toggle-container">
+  <button id="toggle" onclick="toggleDarkMode()">☾</button>
+  <div id="toggle-line" onclick="toggleNav()"></div>
+</div>
+<script>
+let text = document.getElementById("text");
+let container = document.getElementById("container");
+let toggle = document.getElementById("toggle");
+let toggleLine = document.getElementById("toggle-line");
+let nav = document.getElementById("nav");
+let words = ["Halo, Perkenalkan Nama Saya AUREL IKRAM NUGRAHA, panggil saja Rell", "Saya Masih Belajar Dalam Koding", "Website Ini Dibuat Dengan Html,CSS,JavaScript"];
+let index = 0;
+
+function toggleNav() {
+  nav.classList.toggle("active");
+}
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+  if (document.body.classList.contains("dark-mode")) {
+    text.style.animation = "typing 4s steps(20, end), blink-caret .75s step-end infinite";
+    toggle.style.color = "white";
+    toggleLine.style.backgroundColor = "white";
+  } else {
+    text.style.animation = "none";
+    toggle.style.color = "black";
+    toggleLine.style.backgroundColor = "black";
+  }
+}
+
+setInterval(function() {
+  text.style.animation = "none";
+  setTimeout(function() {
+    text.innerHTML = words[index];
+    text.style.animation = "typing 4s steps(20, end), blink-caret .75s step-end infinite";
+    index++;
+    if (index == words.length) index = 0;
+    text.style.width = words[index].length + "ch";
+  }, 1000);
+}, 5000);
+
+</script>
+</body>
+</html>
